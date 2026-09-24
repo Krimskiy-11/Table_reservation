@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ru" data-bs-theme="dark">
+<head>
+    {% load static %}
+    {% load my_tags %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Меню | Ресторан "Riva del Mare"{% endblock %}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top py-3">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'booking:home' %}">
+            <i class="bi bi-water me-2"></i>
+            Riva del Mare
+        </a>
+        <button class="navbar-toggler border-0 shadow-none text-gold" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Переключатель навигации">
+            <i class="bi bi-list fs-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">О нас</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'booking:menu' %}">Меню</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#reservation">Контакты</a>
+                </li>
+                <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                    <a href="{% url 'booking:booking_create' %}" class="btn btn-outline-gold px-4 py-2">Бронь стола</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Заголовок страницы (Hero Banner) -->
+<header class="section-padding text-center mt-5 pb-4 mb-5">
+    <div class="container">
+        <span class="text-uppercase text-gold letter-spacing-2 small fw-semibold"></span>
+        <h1 class="display-3 fw-bold mt-2 text-gold">Основное Меню</h1>
+        <div class="divider my-3"></div>
+        <p class="lead text-light opacity-75 max-w-600 mx-auto">
+            Дары океана, дикая рыба и эксклюзивные морепродукты, доставленные прямым рейсом.
+        </p>
+    </div>
+</header>
+
+<!-- Раздел с меню и вкладочной навигацией (Tabs) -->
+<main class="container pb-5">
+
+    <!-- Переключатели категорий -->
+    <ul class="nav nav-pills justify-content-center mb-5 gap-2" id="menuTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active custom-tab-btn" id="starters-tab" data-bs-toggle="tab"
+                    data-bs-target="#starters" type="button" role="tab">
+                Закуски
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link custom-tab-btn" id="mains-tab" data-bs-toggle="tab" data-bs-target="#mains"
+                    type="button" role="tab">
+                Горячие блюда
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link custom-tab-btn" id="seafood-tab" data-bs-toggle="tab" data-bs-target="#seafood"
+                    type="button" role="tab">
+                Морские деликатесы
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link custom-tab-btn" id="desserts-tab" data-bs-toggle="tab" data-bs-target="#desserts"
+                    type="button" role="tab">
+                Десерты & Вино
+            </button>
+        </li>
+    </ul>
+
+    <!-- Содержимое категорий -->
+    <div class="tab-content" id="menuTabsContent">
+
+        <!-- Вкладка 1: Закуски -->
+        <div class="tab-pane fade show active" id="starters" role="tabpanel">
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card menu-card h-100 position-relative">
+                        <span class="badge bg-gold position-absolute top-0 end-0 m-3 text-dark font-weight-bold">Шеф-выбор</span>
+                        <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80"
+                             class="card-img-top" alt="Крудо из тунца">
+                        <div class="card-body d-flex flex-column justify-content-between p-4">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                                    <h3 class="h5 text-gold mb-0">Тартар из жёлтопёрого тунца</h3>
+                                    <span class="menu-price">1 850 ₽</span>
+                                </div>
+                                <p class="card-text text-light opacity-75 small">
+                                    Свежий тунец, авокадо, эмульсия из юдзу, семена кунжута и трюфельный соус.
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-3 border-top border-secondary opacity-50 text-end small text-light">180
+                                г
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card menu-card h-100">
+                        <img src="https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&fit=crop&w=600&q=80"
+                             class="card-img-top" alt="Салат с креветками">
+                        <div class="card-body d-flex flex-column justify-content-between p-4">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                                    <h3 class="h5 text-gold mb-0">Салат с камчатским крабом</h3>
+                                    <span class="menu-price">2 400 ₽</span>
+                                </div>
+                                <p class="card-text text-light opacity-75 small">
+                                    Фаланги краба, микс-салат, манго, томаты черри и легкая заправка из маракуйи.
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-3 border-top border-secondary opacity-50 text-end small text-light">220
+                                г
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Вкладка 2: Горячие блюда -->
+        <div class="tab-pane fade" id="mains" role="tabpanel">
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card menu-card h-100">
+                        <img src="https://images.unsplash.com/photo-1485921325833-c519f76c4927?auto=format&fit=crop&w=600&q=80"
+                             class="card-img-top" alt="Стейк из лосося">
+                        <div class="card-body d-flex flex-column justify-content-between p-4">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                                    <h3 class="h5 text-gold mb-0">Дикий Лосось на Гриле</h3>
+                                    <span class="menu-price">2 800 ₽</span>
+                                </div>
+                                <p class="card-text text-light opacity-75 small">
+                                    Стейк из фарерского лосося с кремом из зеленого горошка и икорным соусом шампань.
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-3 border-top border-secondary opacity-50 text-end small text-light">300
+                                г
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card menu-card h-100 position-relative">
+                        <span class="badge bg-gold position-absolute top-0 end-0 m-3 text-dark font-weight-bold">Хит</span>
+                        <img src="/media/images/pasta.jpg"
+                             class="card-img-top" alt="Паста с морепродуктами">
+                        <div class="card-body d-flex flex-column justify-content-between p-4">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                                    <h3 class="h5 text-gold mb-0">Паста Frutti di Mare</h3>
+                                    <span class="menu-price">2 100 ₽</span>
+                                </div>
+                                <p class="card-text text-light opacity-75 small">
+                                    Домашняя спагетти с тигровыми креветками, мидиями, кальмаром и томатами сан-марцано.
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-3 border-top border-secondary opacity-50 text-end small text-light">350
+                                г
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card menu-card h-100 position-relative">
+                        <span class="badge bg-gold position-absolute top-0 end-0 m-3 text-dark font-weight-bold">Хит</span>
+                        <img src="/media/images/dorado.jpg"
+                             class="card-img-top" alt="Дорадо Гриль">
+                        <div class="card-body d-flex flex-column justify-content-between p-4">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                                    <h3 class="h5 text-gold mb-0">Дорадо Гриль</h3>
+                                    <span class="menu-price">3 100 ₽</span>
+                                </div>
+                                <p class="card-text text-light opacity-75 small">
+                                    Нежное, слегка сладковатое мясо раскрывается в гармонии с ароматом розмарина,
+                                    тимьяна и капелькой оливкового масла extra virgin.
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-3 border-top border-secondary opacity-50 text-end small text-light">350
+                                г
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Вкладка 3: Плато & Устрицы -->
+        <div class="tab-pane fade" id="seafood" role="tabpanel">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-6">
+                    <div class="card menu-card h-100 p-2">
+                        <div class="card-body p-4">
+                            <span class="text-gold uppercase small">На компанию</span>
+                            <h3 class="h3 text-gold mt-1 mb-3">Большое плато "Riva del Mare"</h3>
+                            <p class="text-light opacity-75 mb-4">
+                                Устрицы Фин де Клер (4 шт), Камчатский краб, тигровые креветки на льду, тартар из тунца
+                                и морские ежи. Подаётся с тремя видами авторских соусов.
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="menu-price fs-2">12 500 ₽</span>
+                                <span class="text-light opacity-50">1 200 г</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Вкладка 4: Десерты -->
+        <div class="tab-pane fade" id="desserts" role="tabpanel">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card menu-card h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-baseline mb-2">
+                                <h3 class="h5 text-gold mb-0">Лимонный тарт с меренгой</h3>
+                                <span class="menu-price">680 ₽</span>
+                            </div>
+                            <p class="card-text text-light opacity-75 small">
+                                Нежная цитрусовая курд-начинка, хрустящее песочное тесто и опаленная обожженная меренга.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+<!-- Подвал -->
+<footer class="text-center">
+    <div class="container">
+        <h4 class="text-gold mb-3">Riva del Mare</h4>
+        <p class="text-light opacity-50 mb-4">Премиальный рыбный ресторан</p>
+        <a href="{% url 'booking:booking_create' %}" class="btn btn-gold">Забронировать стол</a>
+        <div class="mt-4 pt-3 border-top border-secondary opacity-25">
+            <small class="text-light">&copy; 2026 Riva del Mare. Все права защищены.</small>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

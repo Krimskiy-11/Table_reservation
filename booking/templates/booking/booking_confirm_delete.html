@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru" data-bs-theme="dark">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Подтверждение удаления брони № {{ object.id }} | Ресторан "Riva del Mare"{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="d-flex align-items-center justify-content-center min-vh-100">
+
+    <main class="container px-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card menu-card p-4 p-md-5 text-center shadow-lg">
+                    <div class="card-body">
+                        <div class="mb-4 text-gold">
+                            <i class="bi bi-check-circle display-1"></i>
+                        </div>
+
+                        <h1 class="h2 text-gold mb-3 fw-bold">Подтверждение</h1>
+
+                        <div class="divider mb-4"></div>
+
+                        <p class="fs-5 text-light mb-4 opacity-75">
+                            Вы действительно хотите удалить бронь № {{ object.id }}
+                        </p>
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-gold text-decoration-none mt-2">Удалить</button>
+                            <a href="{% url 'booking:booking_list' %}" class="btn  text-decoration-none mt-2">Отмена</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS (опционально) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
