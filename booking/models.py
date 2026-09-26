@@ -16,17 +16,22 @@ class Booking(models.Model):
         verbose_name="Укажите количество гостей"
     )
     date = models.DateField(
-        default=date.today,
         verbose_name="Укажите дату бронирования"
     )
     time = models.TimeField(
-        default=time.min,
         verbose_name="Укажите время бронирования"
+    )
+    confirmation = models.BooleanField(
+        default=False,
+        verbose_name="Подтверждение бронирования"
     )
 
     class Meta:
         verbose_name = 'Бронирование'
         verbose_name_plural = 'Бронирования'
+        permissions = [
+            ('can_confirm_booking', 'Can confirm booking')
+        ]
 
     def __str__(self):
         return f"{self.count_of_guests} - {self.name}"

@@ -9,6 +9,7 @@ class User(AbstractUser):
         verbose_name="Почта"
     )
     name = models.CharField(
+        max_length=150,
         verbose_name="Имя гостя"
     )
     phone = models.CharField(
@@ -24,3 +25,6 @@ class User(AbstractUser):
     class Meta:
         verbose_name = "Гость"
         verbose_name_plural = "Гости"
+
+    def __str__(self):
+        return f"{self.name} ({self.email})"

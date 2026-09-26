@@ -1,9 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
+from django.views.generic import CreateView, ListView, DeleteView, UpdateView
 
-from booking.forms import BookingForm
+from booking.forms import BookingForm, BookingManagerForm
 from booking.models import Booking
 
 
@@ -19,31 +19,43 @@ def menu_view(request):
     return render(request, 'booking/menu.html')
 
 
-class BookingCreateView(LoginRequiredMixin, CreateView):
+def about_view(request):
+    return render(request, 'booking/about.html')
+
+
+def contact_view(request):
+    return render(request, 'booking/contact.html')
+
+
+class BookingCreateView(CreateView):
     model = Booking
     form_class = BookingForm
     success_url = reverse_lazy("booking:confirmation")
 
-class BookingListView(LoginRequiredMixin, ListView):
+class BookingListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Booking
     template_name = "booking/booking_list.html"
+    raise_exception = True
 
-    # def get_queryset(self):
-    #     if self.request.user.groups.filter(name='Managers').exists():
-    #         qs = Booking.objects.all()
-    #     else:
-    #         qs = Booking.objects.filter(owner=self.request.user)
-    #     return qs
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name="Managers").exists()
 
-
-class BookingDeleteView(LoginRequiredMixin, DeleteView):
+class BookingDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Booking
     template_name = "booking/booking_confirm_delete.html"
     success_url = reverse_lazy("booking:booking_list")
+    raise_exception = True
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name="Managers").exists()
 
 
-class BookingUpdateView(LoginRequiredMixin, UpdateView):
+class BookingUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Booking
-    form_class = BookingForm
+    form_class = BookingManagerForm
     template_name = "booking/booking_form.html"
     success_url = reverse_lazy("booking:booking_list")
+    raise_exception = True
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.groups.filter(name="Managers").exists()
