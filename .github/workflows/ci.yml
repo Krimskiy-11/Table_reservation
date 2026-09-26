@@ -43,33 +43,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Python
+        id: setup-python
         uses: actions/setup-python@v5
         with:
           python-version: '3.14'
 
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          version: latest
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+      - name: Install Poetry via pipx
+        run: |
+          pipx install poetry
+          pipx ensurepath
 
-      - name: Load cached venv
-        uses: actions/cache@v4
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Configure Poetry
+        run: |
+          poetry config virtualenvs.create false
+          poetry config virtualenvs.in-project false
 
       - name: Install dependencies
-        run: poetry install --no-root
-
-      - name: Run migrations & tests
         run: |
-          poetry run python manage.py migrate
-          poetry run python manage.py test
+          poetry env use ${{ steps.setup-python.outputs.python-path }}
+          poetry install --no-root
+        shell: bash
+
+      - name: Run migrations
+        run: poetry run python manage.py migrate
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings
+          CI: "true"
+          SECRET_KEY: "ci-insecure-secret-key"
+
+      - name: Run tests
+        run: poetry run python manage.py test
         env:
           DJANGO_SETTINGS_MODULE: config.settings
           CI: "true"
