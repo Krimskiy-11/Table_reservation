@@ -57,49 +57,35 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
+      - name: Check out repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        id: setup-python
         uses: actions/setup-python@v5
         with:
           python-version: '3.14'
 
-      - name: Install Poetry via pipx
-        run: |
-          pipx install poetry
-          pipx ensurepath
-
       - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Configure Poetry
-        run: |
-          poetry config virtualenvs.create false
-          poetry config virtualenvs.in-project false
+        run: pip install poetry
 
       - name: Install dependencies
+        run: poetry install
+
+      - name: Create static directory
+        run: mkdir -p static
+
+      - name: Run Migrations and Tests
+        env:
+          SECRET_KEY: django-insecure-m+c1&pbfkl2$k2#8m(r4ay*h99nxw-ryike$omv^1j!4u&ide)
+          DEBUG: 'True'
+          DATABASE_NAME: table_reservation
+          DATABASE_USER: postgres
+          DATABASE_PASSWORD: sashacool2003
+          DATABASE_HOST: localhost
+          DATABASE_PORT: 5432
         run: |
-          poetry env use ${{ steps.setup-python.outputs.python-path }}
-          poetry install --no-root
-        shell: bash
-
-      - name: Run migrations
-        run: poetry run python manage.py migrate
-        env:
-          DJANGO_SETTINGS_MODULE: config.settings
-          CI: "true"
-          SECRET_KEY: "ci-insecure-secret-key"
-
-      - name: Run tests
-        run: poetry run python manage.py test
-        env:
-          DJANGO_SETTINGS_MODULE: config.settings
-          CI: "true"
-          SECRET_KEY: "ci-insecure-secret-key"
+          poetry run python manage.py migrate
+          poetry run python manage.py test
 
   build-and-deploy:
     name: Build & Deploy
