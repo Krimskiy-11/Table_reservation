@@ -1,4 +1,10 @@
-*.log
-tmp/
-.vscode/
-**/__pycache__/
+.git
+.gitignore
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+media/
+staticfiles/

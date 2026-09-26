@@ -22,7 +22,7 @@ class RegisterViewTestCase(TestCase):
 
     def test_register_user(self):
         """Создание пользователя"""
-        response = self.client.post(self.register_url, data=self.user)
+        self.client.post(self.register_url, data=self.user)
 
         user_exists = User.objects.filter(email="test_user@sky.pro").exists()
         self.assertTrue(user_exists)

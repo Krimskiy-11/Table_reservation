@@ -1,8 +1,7 @@
 import datetime
-
 from django import forms
-
 from .models import Booking
+
 
 class BookingManagerForm(forms.ModelForm):
     class Meta:
@@ -15,7 +14,7 @@ class BookingManagerForm(forms.ModelForm):
         self.fields["confirmation"].label = "Подтвердить бронирование "
 
         self.fields["confirmation"].widget.attrs.update(
-            {"class": "form-check-input",}
+            {"class": "form-check-input"}
         )
 
 
@@ -41,23 +40,23 @@ class BookingForm(forms.ModelForm):
         self.fields["time"].label = "Время визита"
 
         self.fields["name"].widget.attrs.update(
-            {"class": "form-control",}
+            {"class": "form-control"}
         )
 
         self.fields["phone_number"].widget.attrs.update(
-            {"class": "form-control",}
+            {"class": "form-control"}
         )
 
         self.fields["count_of_guests"].widget.attrs.update(
-            {"class": "form-control",}
+            {"class": "form-control"}
         )
 
         self.fields["date"].widget.attrs.update(
-            {"class": "form-control", }
+            {"class": "form-control"}
         )
 
         self.fields["time"].widget.attrs.update(
-            {"class": "form-control", }
+            {"class": "form-control"}
         )
 
     def clean_date(self):

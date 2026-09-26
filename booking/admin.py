@@ -6,4 +6,3 @@ from .models import Booking
 class BookingAdmin(admin.ModelAdmin):
     list_display = ("id", "count_of_guests", "time", "date",)
     search_fields = ("name",)
-

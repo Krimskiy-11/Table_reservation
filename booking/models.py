@@ -1,5 +1,4 @@
 from django.db import models
-from datetime import date, time
 
 
 class Booking(models.Model):
@@ -35,5 +34,3 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.count_of_guests} - {self.name}"
-
-

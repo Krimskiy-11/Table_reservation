@@ -32,6 +32,7 @@ class BookingCreateView(CreateView):
     form_class = BookingForm
     success_url = reverse_lazy("booking:confirmation")
 
+
 class BookingListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Booking
     template_name = "booking/booking_list.html"
@@ -39,6 +40,7 @@ class BookingListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
 
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.groups.filter(name="Managers").exists()
+
 
 class BookingDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Booking
