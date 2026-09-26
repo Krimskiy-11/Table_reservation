@@ -2,6 +2,7 @@
 <html lang="ru" data-bs-theme="dark">
 <head>
     {% load static %}
+    {% load my_tags %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Ресторан "Riva del Mare"{% endblock %}</title>
@@ -88,7 +89,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
-                <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=1200&q=80"
+                <img src="/media/images/fish_bord.jpg"
                      alt="Свежие морепродукты" class="img-fluid rounded shadow-lg">
                 <div class="position-absolute border border-warning"
                      style="top: -20px; left: -20px; right: 20px; bottom: 20px; z-index: -1; border-color: var(--gold) !important; opacity: 0.5;"></div>
@@ -123,7 +124,7 @@
             <!-- Card 1 -->
             <div class="col-md-4">
                 <div class="card menu-card">
-                    <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?auto=format&fit=crop&w=600&q=80"
+                    <img src="/media/images/ustrici.jpg"
                          class="card-img-top" alt="Устрицы">
                     <div class="card-body p-4 text-center">
                         <h4 class="card-title mb-3">Императорские Устрицы</h4>
@@ -136,7 +137,7 @@
             <!-- Card 2 -->
             <div class="col-md-4">
                 <div class="card menu-card">
-                    <img src="https://images.unsplash.com/photo-1553659971-f01207815844?auto=format&fit=crop&w=600&q=80"
+                    <img src="/media/images/lobster.jpg"
                          class="card-img-top" alt="Лобстер">
                     <div class="card-body p-4 text-center">
                         <h4 class="card-title mb-3">Лобстер "Термидор"</h4>
@@ -149,7 +150,7 @@
             <!-- Card 3 -->
             <div class="col-md-4">
                 <div class="card menu-card">
-                    <img src="https://images.unsplash.com/photo-1485921325833-c519f76c4927?auto=format&fit=crop&w=600&q=80"
+                    <img src="/media/images/grill_fish.avif"
                          class="card-img-top" alt="Лосось на гриле">
                     <div class="card-body p-4 text-center">
                         <h4 class="card-title mb-3">Дикий Лосось на Гриле</h4>
